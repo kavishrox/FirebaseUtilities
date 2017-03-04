@@ -1,11 +1,17 @@
 {
-  "name": "node-chat",
-  "version": "0.0.1",
-  "description": "A very simple chat server",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
+  "author": {
+    "name": "Kavish Dwivedi"
   },
+  "email": "dwivedikavish@gmail.com",
+  "description": "Firebase library for Node.js",
+  "version": "0.1.0",
+  "main": "./scripts/firebase-utils.js",
+  "keywords": [
+    "FirebaseUtilities",
+    "synchronization",
+    "real-time",
+    "websocket"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/kavishrox/FirebaseUtilities.git"
