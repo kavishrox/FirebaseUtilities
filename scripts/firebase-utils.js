@@ -1,5 +1,7 @@
 var Firebase = require('firebase');
 var SantiyCheck = require('./sanity-checker');
+var util = require("util");
+var EventEmitter = require('events').EventEmitter;
 
 var config, firebaseUrls;
 
@@ -21,7 +23,10 @@ function initFirebases() {
 function FirebaseUtils(conf) {
   parseConfig(conf);
   initFirebases();
+  EventEmitter.call(this);
 }
+
+util.inherits(LiveSurgeMonitorer, EventEmitter);
 
 FirebaseUtils.prototype.getFirebaseList = function(options) {
   var firebaseList = {};
@@ -38,7 +43,6 @@ FirebaseUtils.prototype.set = function(options) {
   var base = options.base;
   var data = options.data;
   var metaData = options.metaData;
-  logger.debug("Setting firebase with properties: ", options);
   return new Promise(function(resolve ,reject) {
     if(!SantiyCheck.sanityCheck(data)) {
       reject({
@@ -152,4 +156,19 @@ FirebaseUtils.prototype.push = function(options) {
   var path = options.path;
   var data = options.data;
   firebases[base].child(path).push(data);
+};
+
+FirebaseUtils.prototype.notifyOnChange = function(options) {
+  var base = options.base;
+  var path = options.path;
+  var self = this;
+  firebases[base].child(path).on("value", function(snapShot) {
+    if(snapShot.val() !== null) {
+      self.emit("change", {
+        data: snapShot.val()
+      })
+    } else {
+      self.emit("removed", {});
+    }
+  });
 };
