@@ -1,0 +1,21 @@
+{
+  "name": "node-chat",
+  "version": "0.0.1",
+  "description": "A very simple chat server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kavishrox/FirebaseUtilities.git"
+  },
+  "dependencies": {
+    "firebase": "^3.7.0",
+    "node-uuid": "^1.4.7",
+    "winston": "^2.3.1"
+  },
+  "bin": {
+    "simple-server": "./start.js"
+  }
+}
